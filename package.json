@@ -11,6 +11,7 @@
     "test": "npm-run-all test:*",
     "test:html": "html-validate *.html",
     "test:js": "eslint js/",
+    "test:scss": "stylelint sass/",
     "build": "npm-run-all build:* test",
     "build:sass": "sass --style=compressed --no-source-map sass:css",
     "build:autoprefixer": "postcss css/*.css --use autoprefixer -d css",
@@ -27,7 +28,7 @@
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
     "autoprefixer": "^10.2.4",
-    "browser-sync": "^2.27.7",
+    "browser-sync": "^0.9.1",
     "eslint": "^8.10.0",
     "eslint-plugin-react": "^7.29.2",
     "html-validate": "^6.3.1",
@@ -36,6 +37,8 @@
     "onchange": "^7.1.0",
     "postcss": "^8.2.6",
     "postcss-cli": "^8.3.1",
-    "sass": "^1.49.7"
+    "sass": "^1.49.7",
+    "stylelint": "^14.5.3",
+    "stylelint-scss": "^4.1.0"
   }
 }
