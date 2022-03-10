@@ -109,6 +109,7 @@ function addClickListenersToTags(){
   const allLinksToTags = document.querySelectorAll('a[href^="#tag-"]');
   /* START LOOP: for each link */
   for(let link of allLinksToTags){
+    console.log(link)
     /* add tagClickHandler as event listener for that link */
     link.addEventListener('click', tagClickHandler);
   /* END LOOP: for each link */
@@ -170,10 +171,9 @@ function addClickListenersToBeerStyles(){
   const allLinksToBeerStyles = document.querySelectorAll('a[href^="#tag-"]');
   /* START LOOP: for each link */
   for(let link of allLinksToBeerStyles){
+    console.log(link)
     /* add tagClickHandler as event listener for that link */
-    link.addEventListener('click', tagClickHandler);
+    link.addEventListener('click', beerStyleClickHandler);
   /* END LOOP: for each link */
   }
 }
-
-addClickListenersToBeerStyles()
