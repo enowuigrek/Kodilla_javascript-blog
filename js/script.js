@@ -14,6 +14,7 @@ function titleClickHandler(event){
   const articleSelector = clickedElement.getAttribute('href');
   const targetArticle = document.querySelector(articleSelector);
 
+
   for(let activeLink of activeLinks){
     activeLink.classList.remove('active');
   }
@@ -35,7 +36,7 @@ function generateTitleLinks(customSelector = ''){
     const articleId = article.getAttribute('id');
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
     const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    article.addEventListener('click', titleClickHandler);
+    // article.addEventListener('click', titleClickHandler);
     html = html + linkHTML;
   }
 
@@ -52,29 +53,17 @@ generateTitleLinks();
 
 
 function generateTags(){
-  /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
-  /* START LOOP: for every article: */
   for(let article of articles){
-    /* find tags wrapper */
     const titleList = article.querySelector(optArticleTagsSelector);
-    /* make html variable with empty string */
     let html = '';
-    /* get tags from data-tags attribute */
     const articleTags = article.getAttribute('data-tags');
-    /* split tags into array */
     const articleTagsArray = articleTags.split(' ');
-    /* START LOOP: for each tag */
     for(let tag of articleTagsArray){
-      /* generate HTML of the link */
-      const LinkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li> ';
-      /* add generated code to html variable */
-      html = html + LinkHTML;
-    /* END LOOP: for each tag */
+      const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li> ';
+      html = html + linkHTML;
     }
-    /* insert HTML of all the links into the tags wrapper */
     titleList.innerHTML = html;
-  /* END LOOP: for every article: */
   }
 }
 
@@ -88,10 +77,13 @@ function tagClickHandler(event){
   const clickedElement = this;
   /* make a new constant "href" and read the attribute "href" of the clicked element */
   const href = clickedElement.getAttribute('href');
+  console.log(href)
+
   /* make a new constant "tag" and extract tag from the "href" constant */
   const tag = href.replace('#tag-', '');
   /* find all tag links with class active */
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
+  console.log(activeTags)
   /* START LOOP: for each active tag link */
   for(let activeTag of activeTags){
     /* remove class active */
@@ -125,21 +117,21 @@ function addClickListenersToTags(){
 
 addClickListenersToTags();
 
+
 function generateBeerStyles(){
   const articles = document.querySelectorAll(optArticleSelector);
   for(let article of articles){
     const titleList = article.querySelector(optArticleBeerStylesSelector);
-    console.log(titleList);
     let html = '';
-    const articleBeerStyles = article.getAttribute('data-beerstyles');
-    console.log(articleBeerStyles)
-    const LinkHTML = '<a href="#' + articleBeerStyles + '"><span>' + articleBeerStyles + '</span></a>';
-    html = html + LinkHTML;
+    const beerStyle = article.getAttribute('data-beerstyles');
+    const linkHTML = '<a href="#tag-' + beerStyle + '"><span>' + beerStyle + '</span></a>';
+    html = html + linkHTML;
     titleList.innerHTML = html;
   }
 }
 
 generateBeerStyles();
+
 
 function beerStyleClickHandler(event){
   /* prevent default action for this event */
@@ -147,5 +139,41 @@ function beerStyleClickHandler(event){
   /* make new constant named "clickedElement" and give it the value of "this" */
   const clickedElement = this;
   /* make a new constant "href" and read the attribute "href" of the clicked element */
-  const href = clickedElement.getAttribute('href');
+  const hrefBeerStyles = clickedElement.getAttribute('href');
+  console.log(hrefBeerStyles)
+  /* make a new constant "tag" and extract tag from the "href" constant */
+  const tagBeerStyle = href.replace('#tag-', '');
+  /* find all tag links with class active */
+  const activeBeerStyles = document.querySelectorAll('a.active[href^="#tag-"]');
+  /* START LOOP: for each active tag link */
+  for(let activeBeerStyle of activeBeerStyles){
+    /* remove class active */
+    activeBeerStyle.classList.remove('active');
+  /* END LOOP: for each active tag link */
+  }
+  /* find all tag links with "href" attribute equal to the "href" constant */
+  const tagLinks = document.querySelectorAll('a[href="' + hrefBeerStyles + '"]');
+  /* START LOOP: for each found tag link */
+  for(let tagLink of tagLinks){
+    /* add class active */
+    tagLink.classList.add('active');
+  /* END LOOP: for each found tag link */
+  }
+  /* execute function "generateTitleLinks" with article selector as argument */
+  generateTitleLinks('[data-tags="' + tagBeerStyle+ '"]');
+  console.log (tagBeerStyle)
 }
+
+
+function addClickListenersToBeerStyles(){
+  /* find all links to tags */
+  const allLinksToBeerStyles = document.querySelectorAll('a[href^="#tag-"]');
+  /* START LOOP: for each link */
+  for(let link of allLinksToBeerStyles){
+    /* add tagClickHandler as event listener for that link */
+    link.addEventListener('click', tagClickHandler);
+  /* END LOOP: for each link */
+  }
+}
+
+addClickListenersToBeerStyles()
