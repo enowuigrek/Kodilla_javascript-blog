@@ -121,12 +121,15 @@ function tagClickHandler(event){
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   const tag = href.replace('#tag-', '');
+  console.log(tag)
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
 
   for(let activeTag of activeTags){
     activeTag.classList.remove('active');
   }
+
   const tagLinks = document.querySelectorAll('a[href="' + href + '"]');
+
   for(let tagLink of tagLinks){
     tagLink.classList.add('active');
   }
@@ -174,7 +177,7 @@ function generateBeerStyles(){
 
   let allBeerStylesHTML = ' ';
   for(let beerStyle in allBeerStyles){
-    const beerStyleLinkHTML = '<li><a class="' + calculateTagClass(allBeerStyles[beerStyle], beerStylesParams) + '" href="#tag-' + beerStyle + '" ><span>' + beerStyle  + '</span></a></li>';
+    const beerStyleLinkHTML = '<li><a class="' + calculateTagClass(allBeerStyles[beerStyle], beerStylesParams) + '" href="#beerStyle-' + beerStyle + '" ><span>' + beerStyle  + '</span></a></li>';
     allBeerStylesHTML += beerStyleLinkHTML;
   }
   console.log(beerStylesList)
@@ -188,20 +191,21 @@ function beerStyleClickHandler(event){
   event.preventDefault();
 
   const clickedElement = this;
-  const hrefBeerStyles = clickedElement.getAttribute('href');
-  const tagBeerStyle = href.replace('#tag-', '');
-  const activeBeerStyles = document.querySelectorAll('a.active[href^="#tag-"]');
+  const href = clickedElement.getAttribute('href');
+  const bs = href.replace('#beerStyle-', '');
+  console.log (bs)
+  const activeBeerStyles = document.querySelectorAll('a.active[href^="#beerStyle-"]');
 
   for(let activeBeerStyle of activeBeerStyles){
     activeBeerStyle.classList.remove('active');
   }
 
-  const tagLinks = document.querySelectorAll('a[href="' + hrefBeerStyles + '"]');
+  const bsLinks = document.querySelectorAll('a[href="' + href + '"]');
 
-  for(let tagLink of tagLinks){
-    tagLink.classList.add('active');
+  for(let bsLink of bsLinks){
+    bsLink.classList.add('active');
   }
-  generateTitleLinks('[data-tags="' + tagBeerStyle+ '"]');
+  generateTitleLinks('[data-beerstyles="' + bs + '"]');
 }
 
 
