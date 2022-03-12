@@ -1,9 +1,14 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+}
+
 const optArticleSelector = '.post';
 const optTitleSelector = '.post-title';
 const optTitleListSelector = '.titles';
-const optArticleTagsSelector = '.post-tags .list';
+const optDataTagsSelector = '.post-tags .list';
 const optArticleBeerStylesSelector ='.post-beerstyle';
 const optBeerStylesListSelector ='.beerstyles';
 const optTagsListSelector = '.tags.list';
@@ -44,8 +49,10 @@ function generateTitleLinks(customSelector = ''){
   for(let article of articles){
     const articleId = article.getAttribute('id');
     const articleTitle = article.querySelector(optTitleSelector).innerHTML;
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
 
+    // const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
     html = html + linkHTML;
   }
 
@@ -87,15 +94,17 @@ function generateTags(){
   const articles = document.querySelectorAll(optArticleSelector);
 
   for(let article of articles){
-    const titleList = article.querySelector(optArticleTagsSelector);
+    const titleList = article.querySelector(optDataTagsSelector);
 
     let html = '';
 
-    const articleTags = article.getAttribute('data-tags');
-    const articleTagsArray = articleTags.split(' ');
+    const dataTags = article.getAttribute('data-tags');
+    const dataTagsArray = dataTags.split(' ');
 
-    for(let tag of articleTagsArray){
-      const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li> ';
+    for(let tag of dataTagsArray){
+      const linkHTMLData = {id: tag, title: tag};
+      const linkHTML = templates.tagLink(linkHTMLData);
+      // const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li> ';
       html = html + linkHTML;
 
       if(!allTags.hasOwnProperty(tag)){
@@ -127,7 +136,6 @@ function tagClickHandler(event){
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   const tag = href.replace('#tag-', '');
-  console.log(tag)
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
 
   for(let activeTag of activeTags){
@@ -142,7 +150,6 @@ function tagClickHandler(event){
 
   generateTitleLinks('[data-tags~="' + tag + '"]');
 }
-
 
 
 function addClickListenersToTags(){
@@ -167,6 +174,7 @@ function generateBeerStyles(){
     const beerStyle = article.getAttribute('data-beerstyles');
     const linkHTML = '<a href="#beerStyle-' + beerStyle + '"><span>' + beerStyle + '</span></a>';
     html = html + linkHTML;
+    console.log(linkHTML)
 
 
     if(!allBeerStyles.hasOwnProperty(beerStyle)){

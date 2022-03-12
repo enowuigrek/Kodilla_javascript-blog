@@ -27,5 +27,8 @@ module.exports = {
         "no-console": [
             "off"
         ]
+    },
+    "globals": {
+      "Handlebars": false
     }
 }

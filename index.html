@@ -109,7 +109,7 @@
                 </div>
               </article>
               <article class="post" id="article-7" data-tags="eksperyment słodowe" data-beerstyles="Pale Ale">
-                <h3 class="post-title">Cheap &amp; Ale</h3>
+                <h3 class="post-title">Cheap and Ale</h3>
                 <p class="post-beerstyle"></p>
                 <div class="post-content">
                     <p>Donec eleifend mauris ac nisl fermentum, ac fermentum turpis dignissim. Aliquam diam nisl, imperdiet a varius eget, lobortis sed nisi. Nullam suscipit ipsum sed magna blandit, sed pellentesque urna malesuada.</p>
@@ -176,6 +176,15 @@
       </main>
     </div>
   </div>
+<script id="template-article-link" type="text/x-handlebars-template">
+  <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
+</script>
+
+<script id="template-tag-link" type="text/x-handlebars-template">
+  <li><a href="#tag-{{ id }}"><span>{{ title }}</span></a></li>
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
