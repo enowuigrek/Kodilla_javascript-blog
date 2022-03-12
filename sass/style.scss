@@ -5,8 +5,8 @@
 $color-light: #fff;
 $color-dark: #444;
 
-$font-logo: 'Heebo', sans-serif;
-$font-logo2: 'Syncopate', sans-serif;
+$font-logotyp: 'Heebo', sans-serif;
+$font-tagline: 'Syncopate', sans-serif;
 $font-header: 'Lexend Deca', sans-serif;
 $font-text: 'Lexend Deca', sans-serif;
 
@@ -115,7 +115,7 @@ padding-bottom: 60px ;
 }
 
 .logotyp {
-  font-family: $font-logo;
+  font-family: $font-logotyp;
   font-size: 90px;
   display: flex;
   justify-content: center;
@@ -124,7 +124,7 @@ padding-bottom: 60px ;
 }
 
 .tagline {
-  font-family: $font-logo2;
+  font-family: $font-tagline;
   font-size: 25px;
   line-height: 1;
   display: flex;
@@ -170,7 +170,7 @@ padding-bottom: 60px ;
 
 .post-beerstyle {
   font-style: italic;
-  margin: 0 21px 0 21px;
+  margin: 33px 0 0 21px;
 
 }
 
@@ -184,27 +184,27 @@ padding-bottom: 60px ;
 /* Tags */
 
 .tag-size-1 {
-  font-size: 15px;
+  font-size: 11px;
 }
 
 .tag-size-2 {
-  font-size: 17px;
+  font-size: 12px;
 }
 
 .tag-size-3 {
-  font-size: 19px;
+  font-size: 13px;
 }
 
 .tag-size-4 {
-  font-size: 21px;
+  font-size: 14px;
 }
 
 .tag-size-5 {
-  font-size: 23px;
+  font-size: 15px;
 }
 
 .tag-size-5 {
-  font-size: 25px;
+  font-size: 16px;
 }
 
 

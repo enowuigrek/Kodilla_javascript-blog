@@ -10,8 +10,10 @@ const optTagsListSelector = '.tags.list';
 const optCloudClassCount = '5';
 const optCloudClassPrefix = 'tag-size-';
 
+
 function titleClickHandler(event){
   event.preventDefault();
+
   const clickedElement = this;
   const activeLinks = document.querySelectorAll('.titles a.active');
   const activeArticles = document.querySelectorAll('.post');
@@ -29,6 +31,7 @@ function titleClickHandler(event){
   }
   targetArticle.classList.add('active');
 }
+
 
 function generateTitleLinks(customSelector = ''){
   const titleList = document.querySelector(optTitleListSelector);
@@ -55,10 +58,10 @@ function generateTitleLinks(customSelector = ''){
   }
 }
 
-generateTitleLinks();
 
 function calculateTagsParams(tags) {
   const params = {max: 0, min: 999999};
+
   for(let tag in tags){
 
     params.max = Math.max(tags[tag], params.max);
@@ -67,13 +70,16 @@ function calculateTagsParams(tags) {
   return params;
 }
 
+
 function calculateTagClass(count, params){
   const normalizedCount = count - params.min;
   const normalizedMax = params.max - params.min;
   const percentage = normalizedCount / normalizedMax;
   const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
+
   return optCloudClassPrefix + classNumber;
 }
+
 
 function generateTags(){
   let allTags = {};
@@ -98,21 +104,21 @@ function generateTags(){
         allTags [tag]++;
       }
     }
+
     titleList.innerHTML = html;
   }
+
   const tagList = document.querySelector(optTagsListSelector);
   const tagsParams = calculateTagsParams(allTags);
 
   let allTagsHTML = ' ';
   for(let tag in allTags){
-    const tagLinkHTML = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '" ><span>' + tag + ' (' +allTags[tag]+ ')' + '</span></a></li>';
+    const tagLinkHTML = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '" ><span>' + tag + '(' +allTags[tag]+ ')' + '</span></a></li>';
     allTagsHTML += tagLinkHTML;
   }
-  console.log(tagList)
+
   tagList.innerHTML = allTagsHTML;
 }
-
-generateTags();
 
 
 function tagClickHandler(event){
@@ -147,8 +153,6 @@ function addClickListenersToTags(){
   }
 }
 
-addClickListenersToTags();
-
 
 function generateBeerStyles(){
   let allBeerStyles ={};
@@ -164,6 +168,7 @@ function generateBeerStyles(){
     const linkHTML = '<a href="#beerStyle-' + beerStyle + '"><span>' + beerStyle + '</span></a>';
     html = html + linkHTML;
 
+
     if(!allBeerStyles.hasOwnProperty(beerStyle)){
       allBeerStyles[beerStyle] = 1;
     } else {
@@ -176,15 +181,14 @@ function generateBeerStyles(){
   const beerStylesParams = calculateTagsParams(allBeerStyles);
 
   let allBeerStylesHTML = ' ';
+
   for(let beerStyle in allBeerStyles){
-    const beerStyleLinkHTML = '<li><a class="' + calculateTagClass(allBeerStyles[beerStyle], beerStylesParams) + '" href="#beerStyle-' + beerStyle + '" ><span>' + beerStyle  + '</span></a></li>';
+    const beerStyleLinkHTML = '<li><a href="#beerStyle-' + beerStyle + '"><span>' + beerStyle + '</span></a></li>';
     allBeerStylesHTML += beerStyleLinkHTML;
   }
-  console.log(beerStylesList)
+
   beerStylesList.innerHTML = allBeerStylesHTML;
 }
-
-generateBeerStyles();
 
 
 function beerStyleClickHandler(event){
@@ -192,20 +196,20 @@ function beerStyleClickHandler(event){
 
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
-  const bs = href.replace('#beerStyle-', '');
-  console.log (bs)
+  const beerStyle = href.replace('#beerStyle-', '');
   const activeBeerStyles = document.querySelectorAll('a.active[href^="#beerStyle-"]');
 
   for(let activeBeerStyle of activeBeerStyles){
     activeBeerStyle.classList.remove('active');
   }
 
-  const bsLinks = document.querySelectorAll('a[href="' + href + '"]');
+  const beerStyleLinks = document.querySelectorAll('a[href="' + href + '"]');
 
-  for(let bsLink of bsLinks){
-    bsLink.classList.add('active');
+  for(let beerStyleLink of beerStyleLinks){
+    beerStyleLink.classList.add('active');
   }
-  generateTitleLinks('[data-beerstyles="' + bs + '"]');
+
+  generateTitleLinks('[data-beerstyles="' + beerStyle + '"]');
 }
 
 
@@ -217,4 +221,9 @@ function addClickListenersToBeerStyles(){
   }
 }
 
-addClickListenersToBeerStyles()
+
+generateTitleLinks();
+generateTags();
+addClickListenersToTags();
+generateBeerStyles();
+addClickListenersToBeerStyles();
