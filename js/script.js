@@ -1,4 +1,3 @@
-
 'use strict';
 
 const templates = {
@@ -6,8 +5,8 @@ const templates = {
   tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
   beerStyleLink: Handlebars.compile(document.querySelector('#template-beer-style-link').innerHTML),
   tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
-  beerStyleCloudLink: Handlebars.compile(document.querySelector('#template-beer-style-cloud-link').innerHTML),
-}
+  beerStyleCloudLink: Handlebars.compile(document.querySelector('#template-beer-style-cloud-link').innerHTML)
+};
 
 const optArticleSelector = '.post';
 const optTitleSelector = '.post-title';
@@ -56,10 +55,8 @@ function generateTitleLinks(customSelector = ''){
     const linkHTMLData = {id: articleId, title: articleTitle};
     const linkHTML = templates.articleLink(linkHTMLData);
 
-    // const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
     html = html + linkHTML;
   }
-
   titleList.innerHTML = html;
 
   const links = document.querySelectorAll('.titles a');
@@ -74,7 +71,6 @@ function calculateTagsParams(tags) {
   const params = {max: 0, min: 999999};
 
   for(let tag in tags){
-
     params.max = Math.max(tags[tag], params.max);
     params.min = Math.min(tags[tag], params.min);
   }
@@ -108,7 +104,7 @@ function generateTags(){
     for(let tag of dataTagsArray){
       const linkHTMLData = {id: tag, title: tag};
       const linkHTML = templates.tagLink(linkHTMLData);
-      // const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li> ';
+
       html = html + linkHTML;
 
       if(!allTags.hasOwnProperty(tag)){
@@ -117,7 +113,6 @@ function generateTags(){
         allTags [tag]++;
       }
     }
-
     titleList.innerHTML = html;
   }
 
@@ -126,27 +121,23 @@ function generateTags(){
   const allTagsData = {tags: []};
 
   for(let tag in allTags){
-    // const tagLinkHTML = '<li><a class="' + calculateTagClass(allTags[tag], tagsParams) + '" href="#tag-' + tag + '" ><span>' + tag + '(' +allTags[tag]+ ')' + '</span></a></li>';
     allTagsData.tags.push({
       tag: tag,
       count: allTags[tag],
       className: calculateTagClass(allTags[tag], tagsParams)
     });
   }
-
   tagList.innerHTML = templates.tagCloudLink(allTagsData);
-  console.log(allTagsData)
 }
 
 
 function tagClickHandler(event){
-  // event.preventDefault();
+  event.preventDefault();
 
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   const tag = href.replace('#tag-', '');
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
-  console.log(activeTags)
 
   for(let activeTag of activeTags){
     activeTag.classList.remove('active');
@@ -161,10 +152,8 @@ function tagClickHandler(event){
   generateTitleLinks('[data-tags~="' + tag + '"]');
 }
 
-
 function addClickListenersToTags(){
   const allLinksToTags = document.querySelectorAll('a[href^="#tag-"]');
-  console.log(allLinksToTags)
 
   for(let link of allLinksToTags){
     link.addEventListener('click', tagClickHandler);
@@ -183,10 +172,9 @@ function generateBeerStyles(){
     let html = '';
 
     const beerStyle = article.getAttribute('data-beerstyles');
-
     const linkHTMLData = {id: beerStyle, title: beerStyle};
     const linkHTML = templates.beerStyleLink(linkHTMLData);
-    // const linkHTML = '<a href="#beerStyle-' + beerStyle + '"><span>' + beerStyle + '</span></a>';
+
     html = html + linkHTML;
 
     if(!allBeerStyles.hasOwnProperty(beerStyle)){
@@ -194,36 +182,28 @@ function generateBeerStyles(){
     } else {
       allBeerStyles[beerStyle] ++;
     }
-
     titleList.innerHTML = html;
   }
 
   const beerStylesList = document.querySelector(optBeerStylesListSelector);
   const allBeerStylesData = {beerStyles: []};
 
-  // let allBeerStylesHTML = ' ';
-
   for(let beerStyle in allBeerStyles){
     allBeerStylesData.beerStyles.push({
       beerStyle: beerStyle,
     });
-    // const beerStyleLinkHTML = '<li><a href="#beerStyle-' + beerStyle + '"><span>' + beerStyle + '</span></a></li>';
-    // allBeerStylesHTML += beerStyleLinkHTML;
   }
-
   beerStylesList.innerHTML = templates.beerStyleCloudLink(allBeerStylesData);
-  console.log(allBeerStylesData)
 }
 
 
 function beerStyleClickHandler(event){
-  // event.preventDefault();
+  event.preventDefault();
 
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   const beerStyle = href.replace('#beerStyle-', '');
   const activeBeerStyles = document.querySelectorAll('a.active[href^="#beerStyle-"]');
-  console.log(activeBeerStyles)
 
   for(let activeBeerStyle of activeBeerStyles){
     activeBeerStyle.classList.remove('active');
@@ -234,22 +214,17 @@ function beerStyleClickHandler(event){
   for(let beerStyleLink of beerStyleLinks){
     beerStyleLink.classList.add('active');
   }
-
-
   generateTitleLinks('[data-beerstyles="' + beerStyle + '"]');
 }
 
 
 function addClickListenersToBeerStyles(){
   const allLinksToBeerStyles = document.querySelectorAll('a[href^="#beerStyle-"]');
-  console.log(allLinksToBeerStyles)
 
   for(let link of allLinksToBeerStyles){
     link.addEventListener('click', beerStyleClickHandler);
   }
-
 }
-
 
 generateTitleLinks();
 generateTags();
