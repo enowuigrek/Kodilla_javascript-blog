@@ -1,3 +1,4 @@
+
 'use strict';
 
 const templates = {
@@ -139,12 +140,13 @@ function generateTags(){
 
 
 function tagClickHandler(event){
-  event.preventDefault();
+  // event.preventDefault();
 
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   const tag = href.replace('#tag-', '');
   const activeTags = document.querySelectorAll('a.active[href^="#tag-"]');
+  console.log(activeTags)
 
   for(let activeTag of activeTags){
     activeTag.classList.remove('active');
@@ -162,6 +164,7 @@ function tagClickHandler(event){
 
 function addClickListenersToTags(){
   const allLinksToTags = document.querySelectorAll('a[href^="#tag-"]');
+  console.log(allLinksToTags)
 
   for(let link of allLinksToTags){
     link.addEventListener('click', tagClickHandler);
@@ -191,11 +194,11 @@ function generateBeerStyles(){
     } else {
       allBeerStyles[beerStyle] ++;
     }
+
     titleList.innerHTML = html;
   }
 
   const beerStylesList = document.querySelector(optBeerStylesListSelector);
-  const beerStylesParams = calculateTagsParams(allBeerStyles);
   const allBeerStylesData = {beerStyles: []};
 
   // let allBeerStylesHTML = ' ';
@@ -214,12 +217,13 @@ function generateBeerStyles(){
 
 
 function beerStyleClickHandler(event){
-  event.preventDefault();
+  // event.preventDefault();
 
   const clickedElement = this;
   const href = clickedElement.getAttribute('href');
   const beerStyle = href.replace('#beerStyle-', '');
   const activeBeerStyles = document.querySelectorAll('a.active[href^="#beerStyle-"]');
+  console.log(activeBeerStyles)
 
   for(let activeBeerStyle of activeBeerStyles){
     activeBeerStyle.classList.remove('active');
@@ -231,16 +235,19 @@ function beerStyleClickHandler(event){
     beerStyleLink.classList.add('active');
   }
 
+
   generateTitleLinks('[data-beerstyles="' + beerStyle + '"]');
 }
 
 
 function addClickListenersToBeerStyles(){
   const allLinksToBeerStyles = document.querySelectorAll('a[href^="#beerStyle-"]');
+  console.log(allLinksToBeerStyles)
 
   for(let link of allLinksToBeerStyles){
     link.addEventListener('click', beerStyleClickHandler);
   }
+
 }
 
 

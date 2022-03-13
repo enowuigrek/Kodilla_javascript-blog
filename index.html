@@ -180,7 +180,7 @@
   <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
 </script>
 <script id="template-beer-style-link" type="text/x-handlebars-template">
-  <a href="#{{ id }}"><span>{{ title }}</span></a>
+  <a href="#beerStyle-{{ id }}"><span>{{ title }}</span></a>
 </script>
 <script id="template-tag-link" type="text/x-handlebars-template">
   <li><a href="#tag-{{ id }}"><span>{{ title }}</span></a></li>
@@ -191,7 +191,7 @@
   {{/each}}
 </script>
 <script id="template-beer-style-cloud-link" type="text/x-handlebars-template">
-  {{#each beersStyles}}
+  {{#each beerStyles}}
   <li><a href="#beerStyle-{{beerStyle}}"><span>{{beerStyle}}</span></a></li>
   {{/each}}
 </script>
